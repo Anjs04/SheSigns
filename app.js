@@ -39,12 +39,22 @@ if(args.intent && args.intent.entities)
   console.log(personEntity);
   console.log(throwableObjectEntity);
   console.log(throwingVerbEntity);
-
+  console.log(throwableObjectEntity.entity);
+  var abc = throwableObjectEntity.entity;
+  var ball = "ball";
+  //console.log(abc)
+ console.log("1 '" + throwableObjectEntity.entity.toString() + "'");
+ console.log("2 " + typeof(throwableObjectEntity.entity));
+ //console.log("ing condition " + abc);
+ console.log("checking condition " + (throwableObjectEntity.entity.toString() == "ball"));
   if(throwableObjectEntity)
   {
+    //session.send(throwableObjectEntity.entity);
     //session.send(personEntity.entity);
-    if(throwableObjectEntity.entity === 'ball')
+    console.log("5");
+    if(throwableObjectEntity.entity.toString() == "ball")
     {
+      //console.log("6");
       session.send({
             text: "You sent:",
             attachments: [
@@ -66,8 +76,9 @@ if(args.intent && args.intent.entities)
             ]
         });
     }
-    elseif(throwableObjectEntity.entity === 'can')
+    else if(throwableObjectEntity.entity.toString() == "can")
     {
+    //  console.log("7");
       session.send({
             text: "You sent:",
             attachments: [
@@ -89,33 +100,29 @@ if(args.intent && args.intent.entities)
             ]
         });
     }
+    else{
+       session.send({
+             text: "I am still learning... Try another sentence! :)",
+
+         });
+
+    }
   }
 }
 
 //var object = session.dialogData.throwableObject =
        // session.send("step1");
-       session.send({
-             text: "You sent:",
-             attachments: [
-               {
-                 contentType:"video/mp4",
-                 contentUrl: "http://media.auslan.org.au/auslan/49/4930.mp4",
-                 name: "girl"
-               },
-               {
-                 contentType:"video/mp4",
-                 contentUrl: "http://media.auslan.org.au/mp4video/56/56590_1.mp4",
-                 name: "throw"
-               },
-                 {
-                     contentType:"video/mp4",
-                     contentUrl: "http://media.auslan.org.au/mp4video/30/30140_1.mp4",
-                     name: "ball"
-                 }
-             ]
-         });
+
 
         session.endDialog();
     }]).triggerAction({
     matches: 'throw smth'
+});
+
+bot.dialog('Greetings', [
+    function (session, args, next) {
+      session.send("Welcome to SignBot!");
+      session.endDialog();
+  }]).triggerAction({
+  matches: 'Greetings'
 });
